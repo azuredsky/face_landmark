@@ -171,6 +171,6 @@ class Train(object):
 
 
   def load_weight(self):
-    if cfg.MODEL.pretrained_model is not None:
+    if cfg.MODEL.pretrained is not None:
       state_dict = torch.load(cfg.MODEL.pretrained, map_location=self.device)
       self.model.load_state_dict(state_dict, strict=False)
