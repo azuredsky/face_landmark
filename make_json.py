@@ -10,17 +10,13 @@ from tqdm import tqdm
 i decide to merge more data from CelebA, the data anns will be complex, so json maybe a better way. 
 '''
 
-
-
-
-
-data_dir='/media/lz/ssd_2/coco_data/facelandmark/PUB'      ########points to your director,300w
+data_dir='Datasets'      ########points to your director,300w
 #celeba_data_dir='CELEBA'                      ########points to your director,CELEBA
 
 
 train_json='./train.json'
 val_json='./val.json'
-save_dir='../tmp_crop_data_face_landmark_pytorch'
+save_dir='tmp_crop_data_face_landmark_pytorch'
 
 if not os.access(save_dir,os.F_OK):
     os.mkdir(save_dir)
@@ -69,6 +65,9 @@ def process_data(data_list,json_nm):
 
         #### keypoints
         pts=pic.rsplit('.',1)[0]+'.pts'
+        if not os.access(pts,os.F_OK):
+            pts = pts.replace('vid','annot')
+        # print(pts)
         if os.access(pic,os.F_OK) and  os.access(pts,os.F_OK):
             try:
                 tmp=[]
@@ -89,9 +88,6 @@ def process_data(data_list,json_nm):
 
 
                 ###### crop it
-
-
-
                 image=cv2.imread(one_image_ann['image_path_raw'],cv2.IMREAD_COLOR)
 
                 h,w,c=image.shape
@@ -125,7 +121,7 @@ def process_data(data_list,json_nm):
                 fname=fname.replace('/','_').replace('/','_')
 
                 one_image_ann['image_name']=os.path.join(save_dir,fname)
-                # cv2.imwrite(one_image_ann['image_name'],crop_face)
+                cv2.imwrite(one_image_ann['image_name'],crop_face)
 
 
                 one_image_ann['bbox'][0] -= x1
@@ -136,6 +132,8 @@ def process_data(data_list,json_nm):
                 for i in range(len(one_image_ann['keypoints'])):
                     one_image_ann['keypoints'][i][0]-=x1
                     one_image_ann['keypoints'][i][1]-=y1
+
+
 
 
 
@@ -152,9 +150,10 @@ def process_data(data_list,json_nm):
                 #                                  int(x_y[1] )),
                 #                color=(255, 0, 0), radius=2, thickness=4)
                 #
-                #
                 # cv2.imshow('ss', crop_face)
                 # cv2.waitKey(0)
+
+
 
 
 
@@ -169,7 +168,6 @@ def process_data(data_list,json_nm):
 
     with open(json_nm, 'w') as f:
         json.dump(json_list, f, indent=2)
-
 
 process_data(train_list,train_json)
 

@@ -37,7 +37,7 @@ def main():
 
 
     #build model
-    model = Net(num_classes=cfg.MODEL.out_channel)
+    model = Net(model_name=cfg.MODEL.name, pretrained=cfg.MODEL.pretrained, num_classes=cfg.MODEL.out_channel)
 
     ###build trainer
     trainer = Train( model,train_ds=train_ds,val_ds=val_ds)

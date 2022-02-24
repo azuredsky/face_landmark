@@ -11,9 +11,6 @@ import albumentations as A
 
 from lib.helper.logger import logger
 
-
-
-
 from lib.dataset.augmentor.augmentation import Rotate_aug,\
                                         Affine_aug,\
                                         Mirror,\

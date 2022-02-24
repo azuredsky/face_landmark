@@ -31,8 +31,8 @@ config.MODEL.win = 128
 config.MODEL.channel = 1
 config.MODEL.out_channel=136+3+4    # output vector    68 points , 3 headpose ,4 cls params,(left eye, right eye, mouth, big mouth open)
 
-config.MODEL.net_structure='MobileNetv3'
-config.MODEL.pretrained_model=None
+config.MODEL.name='mnasnet_small'#ShuffleNetV2_1.0,ShuffleNetV2_0.75,ShuffleNetV2_0.5,1.5,2.0,'tf_mobilenetv3_large_minimal_100',tf_mobilenetv3_small_075,mnasnet_small
+config.MODEL.pretrained=None
 config.DATA = edict()
 
 config.DATA.root_path=''
