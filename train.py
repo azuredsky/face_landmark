@@ -1,9 +1,4 @@
 
-
-
-
-
-
 import cv2
 import numpy as np
 
@@ -37,7 +32,7 @@ def main():
 
 
     #build model
-    model = Net(model_name=cfg.MODEL.name, pretrained=cfg.MODEL.pretrained, num_classes=cfg.MODEL.out_channel)
+    model = Net(model_name=cfg.MODEL.model_name, pretrained=cfg.MODEL.pretrained, num_classes=cfg.MODEL.out_channel)
 
     ###build trainer
     trainer = Train( model,train_ds=train_ds,val_ds=val_ds)
@@ -45,9 +40,6 @@ def main():
 
     if cfg.TRAIN.vis:
         for images, labels in train_ds:
-
-
-
             for i in range(images.shape[0]):
 
                 example_image=images[i].numpy().transpose([1,2,0]).copy()

@@ -14,7 +14,7 @@ class Net(nn.Module):
         # self.mean_tensor=torch.from_numpy(cfg.DATA.PIXEL_MEAN ).float().cuda()
         # self.std_val_tensor = torch.from_numpy(cfg.DATA.PIXEL_STD).float().cuda()
         # self.model = EfficientNet.from_pretrained(model_name='efficientnet-b0')
-        self.model = timm.create_model(model_name=model_name, pretrained=pretrained, exportable=True)
+        self.model = timm.create_model(model_name=model_name, num_classes=1024, pretrained=pretrained)
 
         self._avg_pooling = nn.AdaptiveAvgPool2d(1)
 
@@ -27,7 +27,7 @@ class Net(nn.Module):
 
         bs = inputs.size(0)
         # Convolution layers
-        x = self.model.forward_features(inputs)
+        x = self.model(inputs)
 
         fm = x.view(bs, -1)
         x = self._fc(fm)

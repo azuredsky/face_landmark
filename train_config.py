@@ -1,20 +1,18 @@
-
-
 import os
 import numpy as np
 from easydict import EasyDict as edict
 
 config = edict()
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 config.TRAIN = edict()
 #### below are params for dataiter
 config.TRAIN.process_num = 4
 
 ############
-config.TRAIN.batch_size = 128
-config.TRAIN.log_interval = 10                  ##10 iters for a log msg
-config.TRAIN.epoch = 40
+config.TRAIN.batch_size = 256
+config.TRAIN.log_interval = 1000                  ##10 iters for a log msg
+config.TRAIN.epoch = 2000
 config.TRAIN.init_lr= 0.0001
 
 
@@ -25,17 +23,19 @@ config.TRAIN.mix_precision=False                                            ##us
 config.TRAIN.opt='Adamw'                                                     ##Adam or SGD
 
 config.MODEL = edict()
-config.MODEL.model_path = './models'                                        ## save directory
-config.MODEL.hin = 128                                                      # input size during training , 128,160,   depends on
-config.MODEL.win = 128
-config.MODEL.channel = 1
+#config.MODEL.model_path = './models'                                        ## save directory
+config.MODEL.hin = 160                                                      # input size during training , 128,160,   depends on
+config.MODEL.win = 160
+config.MODEL.channel = 3
 config.MODEL.out_channel=136+3+4    # output vector    68 points , 3 headpose ,4 cls params,(left eye, right eye, mouth, big mouth open)
 
-config.MODEL.name='tf_mobilenetv3_small_075'#ShuffleNetV2_1.0,ShuffleNetV2_0.75,ShuffleNetV2_0.5,1.5,2.0,'tf_mobilenetv3_large_minimal_100',tf_mobilenetv3_small_075,mnasnet_small
-config.MODEL.pretrained=None
+config.MODEL.model_name='mnasnet_small'
+config.MODEL.pretrained='./mnasnet_small-eb785140.pth'
 config.DATA = edict()
 
-config.DATA.root_path=''
+config.MODEL.model_path = './' + config.MODEL.model_name
+
+config.DATA.root_path='./'
 config.DATA.train_txt_path='train.json'
 config.DATA.val_txt_path='val.json'
 
