@@ -34,6 +34,7 @@ config.MODEL.pretrained='./mnasnet_small-eb785140.pth'
 config.DATA = edict()
 
 config.MODEL.model_path = './' + config.MODEL.model_name
+config.MODEL.checkpoint = "epoch_213_val_loss4.043813.pth"
 
 config.DATA.root_path='./'
 config.DATA.train_txt_path='train.json'
